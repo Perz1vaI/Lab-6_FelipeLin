@@ -337,6 +337,11 @@ public class Menu extends javax.swing.JFrame {
 
         } catch (Exception e) {
             JOptionPane.showMessageDialog(this, "Ocurrio un error!");
+            tf_nombre.setText("");
+            tf_planeta.setText("");
+            tf_year.setText("");
+            js_poder.setValue(1);
+            cb_raza.setSelectedIndex(0);
         }
     }//GEN-LAST:event_jButton1MouseClicked
 
@@ -368,6 +373,7 @@ public class Menu extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "Fue guardado correctamente!");
         } catch (Exception e) {
             JOptionPane.showMessageDialog(this, "Ocurrio un error!");
+            universo_nombre.setText("");
 
         }
     }//GEN-LAST:event_jButton3MouseClicked
@@ -432,8 +438,7 @@ public class Menu extends javax.swing.JFrame {
                         cadena += u.getLista().indexOf(v) + "-" + v;
                         cadena += "\n";
                     }
-                    System.out.println(cadena);
-                    p = Integer.parseInt(JOptionPane.showInputDialog(this, cadena + "\nPosicion que quiere modificar"));
+                    p = Integer.parseInt(JOptionPane.showInputDialog(this, cadena + "\nPosicion que quiere modificar: "));
                     n = JOptionPane.showInputDialog("El nuevo nombre: ");
                     u.getLista().get(p).setNombre(n);
                     u.escribirArchivo();
@@ -448,7 +453,7 @@ public class Menu extends javax.swing.JFrame {
                         cadena += u.getLista().indexOf(v) + "-" + v;
                         cadena += "\n";
                     }
-                    p = Integer.parseInt(JOptionPane.showInputDialog(cadena + "Posicion que quiere modificar"));
+                    p = Integer.parseInt(JOptionPane.showInputDialog(this, cadena + "\nPosicion que quiere modificar: "));
                     po = Integer.parseInt(JOptionPane.showInputDialog("El nuevo poder: "));
                     if (po > 10 || po < 1) {
                         JOptionPane.showMessageDialog(this, "Ocurrio un error ingreso menor a 1 o ingreo mayor a 10");
@@ -467,10 +472,10 @@ public class Menu extends javax.swing.JFrame {
                         cadena += u.getLista().indexOf(v) + "-" + v;
                         cadena += "\n";
                     }
-                    p = Integer.parseInt(JOptionPane.showInputDialog(this, cadena + "Posicion que quiere modificar"));
+                    p = Integer.parseInt(JOptionPane.showInputDialog(this, cadena + "\nPosicion que quiere modificar: "));
                     a = Integer.parseInt(JOptionPane.showInputDialog("El nuevo año: "));
                     if (a < 1) {
-                        JOptionPane.showMessageDialog(this, "Ocurrio un error ingreso menor a 1 o ingreo mayor a 10");
+                        JOptionPane.showMessageDialog(this, "Ocurrio un error ingreso menor a 1");
                     } else {
                         u.getLista().get(p).setYears(a);
                         u.escribirArchivo();
@@ -485,7 +490,7 @@ public class Menu extends javax.swing.JFrame {
                         cadena += u.getLista().indexOf(v) + "-" + v;
                         cadena += "\n";
                     }
-                    p = Integer.parseInt(JOptionPane.showInputDialog(cadena + "Posicion que quiere modificar"));
+                    p = Integer.parseInt(JOptionPane.showInputDialog(this, cadena + "\nPosicion que quiere modificar: "));
                     pla = JOptionPane.showInputDialog("El nuevo planeta: ");
                     u.getLista().get(p).setPlaneta(pla);
                     u.escribirArchivo();
@@ -499,7 +504,7 @@ public class Menu extends javax.swing.JFrame {
                         cadena += u.getLista().indexOf(v) + "-" + v;
                         cadena += "\n";
                     }
-                    p = Integer.parseInt(JOptionPane.showInputDialog(cadena + "Posicion que quiere modificar"));
+                    p = Integer.parseInt(JOptionPane.showInputDialog(this, cadena + "\nPosicion que quiere modificar: "));
                     op = Integer.parseInt(JOptionPane.showInputDialog("1. Amanto \n2. Humano"));
 
                     if (op == 1) {
@@ -515,13 +520,13 @@ public class Menu extends javax.swing.JFrame {
 
                         JOptionPane.showMessageDialog(this, "Fue modificado correctamente!");
                     } else {
-                        JOptionPane.showMessageDialog(this, "No existe otra opcion ademas de 1 o 2");
+                        JOptionPane.showMessageDialog(this, "No existe otra opcion ademas de 1 o 2!");
                     }
 
                     break;
                 }
                 default:
-                    JOptionPane.showMessageDialog(this, "No existe otra opcion ademas de los dados");
+                    JOptionPane.showMessageDialog(this, "No existe otra opcion ademas de los dados!");
 
             }
 
@@ -536,11 +541,17 @@ public class Menu extends javax.swing.JFrame {
     private void jButton5MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton5MouseClicked
         try {
             // TODO add your handling code here:
-            String universo = JOptionPane.showInputDialog(this, "Ingrese el nombre del universo");
+            String universo = JOptionPane.showInputDialog(this, "Ingrese el nombre del universo: ");
             Universo u = new Universo("./" + universo + ".txt");
+            String cadena = "";
+            u.cargarArchivo();
+            for (SeresVivos v : u.getLista()) {
+                cadena += u.getLista().indexOf(v) + "-" + v;
+                cadena += "\n";
+            }
 
             int p;
-            p = Integer.parseInt(JOptionPane.showInputDialog("Posicion"));
+            p = Integer.parseInt(JOptionPane.showInputDialog(this, cadena + "\nPosicion que quiere eliminar: "));
 
             u.cargarArchivo();
             u.getLista().remove(p);
