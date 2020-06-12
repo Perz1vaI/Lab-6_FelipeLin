@@ -4,14 +4,14 @@ public class SeresVivos {
 
     private String nombre;
     private int poder;
-    private String years;
+    private int years;
     private String planeta;
     private String raza;
 
     public SeresVivos() {
     }
 
-    public SeresVivos(String nombre, int poder, String years, String planeta, String raza) {
+    public SeresVivos(String nombre, int poder, int years, String planeta, String raza) {
         this.nombre = nombre;
         this.poder = poder;
         this.years = years;
@@ -35,11 +35,11 @@ public class SeresVivos {
         this.poder = poder;
     }
 
-    public String getYears() {
+    public int getYears() {
         return years;
     }
 
-    public void setYears(String years) {
+    public void setYears(int years) {
         this.years = years;
     }
 

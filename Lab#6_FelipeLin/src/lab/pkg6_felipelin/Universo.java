@@ -93,7 +93,7 @@ public class Universo {
                 sc = new Scanner(archivo);
                 sc.useDelimiter(";");
                 while (sc.hasNext()) {
-                    lista.add(new SeresVivos(sc.next(), sc.nextInt(), sc.next(), sc.next(), sc.next()));
+                    lista.add(new SeresVivos(sc.next(), sc.nextInt(), sc.nextInt(), sc.next(), sc.next()));
 
                 }
             } catch (Exception ex) {
