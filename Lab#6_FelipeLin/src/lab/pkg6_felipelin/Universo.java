@@ -31,6 +31,11 @@ public class Universo {
 
     }
 
+    public Universo(String path) {
+        archivo = new File(path);
+
+    }
+
     public String getNombre() {
         return nombre;
     }
@@ -91,7 +96,7 @@ public class Universo {
         if (archivo.exists()) {
             try {
                 sc = new Scanner(archivo);
-                sc.useDelimiter(";");
+                sc.useDelimiter("\\|");
                 while (sc.hasNext()) {
                     lista.add(new SeresVivos(sc.next(), sc.nextInt(), sc.nextInt(), sc.next(), sc.next()));
 

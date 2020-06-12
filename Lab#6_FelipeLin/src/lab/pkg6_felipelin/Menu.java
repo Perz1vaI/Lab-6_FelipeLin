@@ -13,7 +13,6 @@ import java.util.ArrayList;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import javax.swing.filechooser.FileNameExtensionFilter;
-import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -28,6 +27,8 @@ public class Menu extends javax.swing.JFrame {
         initComponents();
         this.setLocationRelativeTo(null);
         this.pack();
+        jTabbedPane1.setEnabledAt(1, false);
+
     }
 
     /**
@@ -234,6 +235,11 @@ public class Menu extends javax.swing.JFrame {
         jTabbedPane1.addTab("Cuadro de Texto", jPanel3);
 
         jButton4.setText("Modificar");
+        jButton4.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jButton4MouseClicked(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
@@ -255,6 +261,11 @@ public class Menu extends javax.swing.JFrame {
         jTabbedPane1.addTab("Modificar", jPanel4);
 
         jButton5.setText("Eliminar");
+        jButton5.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jButton5MouseClicked(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
         jPanel5.setLayout(jPanel5Layout);
@@ -320,11 +331,12 @@ public class Menu extends javax.swing.JFrame {
             cb_raza.setSelectedIndex(0);
 
             lista.add(e);
+            jTabbedPane1.setEnabledAt(1, true);
 
             JOptionPane.showMessageDialog(this, "Ser Vivo creado exitosamente!");
 
         } catch (Exception e) {
-            e.printStackTrace();
+            JOptionPane.showMessageDialog(this, "Ocurrio un error!");
         }
     }//GEN-LAST:event_jButton1MouseClicked
 
@@ -350,11 +362,13 @@ public class Menu extends javax.swing.JFrame {
                 confirm = JOptionPane.showInputDialog(this, "Quiere agregar otro Ser Vivo? [s/n]");
 
             }
-
+            universo_nombre.setText("");
             u.escribirArchivo();
 
             JOptionPane.showMessageDialog(this, "Fue guardado correctamente!");
         } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "Ocurrio un error!");
+
         }
     }//GEN-LAST:event_jButton3MouseClicked
 
@@ -388,14 +402,153 @@ public class Menu extends javax.swing.JFrame {
                 }
             } //fin if
         } catch (Exception e) {
-            e.printStackTrace();
+            JOptionPane.showMessageDialog(this, "Ocurrio un error!");
         }
         try {
             br.close();
             fr.close();
         } catch (IOException ex) {
+            JOptionPane.showMessageDialog(this, "Ocurrio un error!");
+
         }
     }//GEN-LAST:event_jButton2MouseClicked
+
+    private void jButton4MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton4MouseClicked
+        // TODO add your handling code here:
+
+        try {
+            String universo = JOptionPane.showInputDialog("Ingrese el nombre del universo");
+
+            Universo u = new Universo("./" + universo + ".txt");
+            String cadena = "";
+            int p, menu, po, a, op;
+            String n, pla, r;
+            menu = Integer.parseInt(JOptionPane.showInputDialog("1. Nombre \n2. Poder \n3. Años \n4. Planeta \n5. Raza"));
+
+            switch (menu) {
+                case 1: {
+                    u.cargarArchivo();
+                    for (SeresVivos v : u.getLista()) {
+                        cadena += u.getLista().indexOf(v) + "-" + v;
+                        cadena += "\n";
+                    }
+                    System.out.println(cadena);
+                    p = Integer.parseInt(JOptionPane.showInputDialog(this, cadena + "\nPosicion que quiere modificar"));
+                    n = JOptionPane.showInputDialog("El nuevo nombre: ");
+                    u.getLista().get(p).setNombre(n);
+                    u.escribirArchivo();
+
+                    JOptionPane.showMessageDialog(this, "Fue modificado correctamente!");
+
+                    break;
+                }
+                case 2: {
+                    u.cargarArchivo();
+                    for (SeresVivos v : u.getLista()) {
+                        cadena += u.getLista().indexOf(v) + "-" + v;
+                        cadena += "\n";
+                    }
+                    p = Integer.parseInt(JOptionPane.showInputDialog(cadena + "Posicion que quiere modificar"));
+                    po = Integer.parseInt(JOptionPane.showInputDialog("El nuevo poder: "));
+                    if (po > 10 || po < 1) {
+                        JOptionPane.showMessageDialog(this, "Ocurrio un error ingreso menor a 1 o ingreo mayor a 10");
+                    } else {
+                        u.getLista().get(p).setPoder(po);
+                        u.escribirArchivo();
+
+                        JOptionPane.showMessageDialog(this, "Fue modificado correctamente!");
+                    }
+
+                    break;
+                }
+                case 3: {
+                    u.cargarArchivo();
+                    for (SeresVivos v : u.getLista()) {
+                        cadena += u.getLista().indexOf(v) + "-" + v;
+                        cadena += "\n";
+                    }
+                    p = Integer.parseInt(JOptionPane.showInputDialog(this, cadena + "Posicion que quiere modificar"));
+                    a = Integer.parseInt(JOptionPane.showInputDialog("El nuevo año: "));
+                    if (a < 1) {
+                        JOptionPane.showMessageDialog(this, "Ocurrio un error ingreso menor a 1 o ingreo mayor a 10");
+                    } else {
+                        u.getLista().get(p).setYears(a);
+                        u.escribirArchivo();
+
+                        JOptionPane.showMessageDialog(this, "Fue modificado correctamente!");
+                    }
+                    break;
+                }
+                case 4: {
+                    u.cargarArchivo();
+                    for (SeresVivos v : u.getLista()) {
+                        cadena += u.getLista().indexOf(v) + "-" + v;
+                        cadena += "\n";
+                    }
+                    p = Integer.parseInt(JOptionPane.showInputDialog(cadena + "Posicion que quiere modificar"));
+                    pla = JOptionPane.showInputDialog("El nuevo planeta: ");
+                    u.getLista().get(p).setPlaneta(pla);
+                    u.escribirArchivo();
+                    JOptionPane.showMessageDialog(this, "Fue modificado correctamente!");
+
+                    break;
+                }
+                case 5: {
+                    u.cargarArchivo();
+                    for (SeresVivos v : u.getLista()) {
+                        cadena += u.getLista().indexOf(v) + "-" + v;
+                        cadena += "\n";
+                    }
+                    p = Integer.parseInt(JOptionPane.showInputDialog(cadena + "Posicion que quiere modificar"));
+                    op = Integer.parseInt(JOptionPane.showInputDialog("1. Amanto \n2. Humano"));
+
+                    if (op == 1) {
+                        r = "Amanto";
+                        u.getLista().get(p).setNombre(r);
+                        u.escribirArchivo();
+
+                        JOptionPane.showMessageDialog(this, "Fue modificado correctamente!");
+                    } else if (op == 2) {
+                        r = "Humano";
+                        u.getLista().get(p).setNombre(r);
+                        u.escribirArchivo();
+
+                        JOptionPane.showMessageDialog(this, "Fue modificado correctamente!");
+                    } else {
+                        JOptionPane.showMessageDialog(this, "No existe otra opcion ademas de 1 o 2");
+                    }
+
+                    break;
+                }
+                default:
+                    JOptionPane.showMessageDialog(this, "No existe otra opcion ademas de los dados");
+
+            }
+
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "Ocurrio un error!");
+
+        }
+
+
+    }//GEN-LAST:event_jButton4MouseClicked
+
+    private void jButton5MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton5MouseClicked
+        try {
+            // TODO add your handling code here:
+            String universo = JOptionPane.showInputDialog(this, "Ingrese el nombre del universo");
+            Universo u = new Universo("./" + universo + ".txt");
+
+            int p;
+            p = Integer.parseInt(JOptionPane.showInputDialog("Posicion"));
+
+            u.cargarArchivo();
+            u.getLista().remove(p);
+            u.escribirArchivo();
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "Ocurrio un error!");
+        }
+    }//GEN-LAST:event_jButton5MouseClicked
 
     /**
      * @param args the command line arguments
